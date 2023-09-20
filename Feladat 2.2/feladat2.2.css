@@ -1,0 +1,19 @@
+body{
+    margin: 0px;
+}
+
+#fo{
+    background-color: yellow;
+    width: 100%;
+    height: 400px;
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+}
+
+.lila{
+    background-color: purple;
+    width: 100px;
+    height: 100px;
+    
+}
