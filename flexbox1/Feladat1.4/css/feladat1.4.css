@@ -1,0 +1,23 @@
+#fo{
+    width: 600px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.zold{
+    background-color: green;
+    flex-grow: 1;
+    
+}
+
+.sarga{
+    background-color: yellow;
+    flex-grow: 2;
+    order: 3;
+}
+
+.lila{
+    background-color: purple;
+    flex-grow: 1;
+}
