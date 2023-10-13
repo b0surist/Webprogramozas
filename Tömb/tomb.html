@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tömbök</title>
+    <script src="JS/tomb.js"></script>
+</head>
+<body>
+    <button onclick="tomb1(0)">Tömb első eleme</button>
+    <button onclick="tomb1(1)">Tömb második eleme</button>
+    <button onclick="tomb1(2)">Tömb harmadik eleme</button>
+    <button onclick="osszegElem()">Összes elem</button>
+    <button onclick="tombHossza()">Tömb hossza</button>
+
+    <p id="text1"></p>
+    
+    <input type="text" id="hozza">
+    <label for="text">Új elem hozzáadása</label>
+    <button onclick="ad()">Hozzáadás</button>
+    <br>
+    <input type="text" id="torles">
+    <label for="text">index megadáas</label>
+    <button onclick="torol()">Törlés</button>
+</body>
+</html>
