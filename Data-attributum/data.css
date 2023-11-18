@@ -1,0 +1,26 @@
+.item{
+    background-color: yellow;
+    grid-column-end: span 2;
+    margin: 20px;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.container{
+    width: 300px;
+    height: 300px;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    
+    background-color: lightblue;
+}
+
+.piros{
+    background-color: red;
+}
+
+.kek{
+    background-color: blue;
+}
