@@ -1,0 +1,22 @@
+body {
+    background-color: aqua;
+    text-align: center;
+    margin: 50px;
+}
+#ki {
+    background-color: antiquewhite;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#bbe {
+    width: 200px;
+    padding: 10px;
+    font-size: 20px;
+}
+#vissza {
+    padding: 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
