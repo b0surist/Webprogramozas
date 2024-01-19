@@ -8,7 +8,7 @@ console.log(year);
 console.log(color);
 
 // kérdés: 
-// 1. 
+// 1. bármilyen tipusút
 // 2. igen
 
 // 2. feladat
@@ -27,7 +27,7 @@ console.log(publicationYear);
 console.log(language);
 
 // kérdés: 
-// 1. 
+// 1. több tagból álló stringet nem
 // 2. nem
 
 // 3. feladat
