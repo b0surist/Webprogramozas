@@ -1,13 +1,14 @@
-function insertDash(num){
-    num = "454793" * 1;
-
-    for(let i = 0; i < num.length; i++){
-        if(num[i] % 2 == 1 && num[i + 1] % 2 == 1){
-            num[i] += "-";
-        }
-        else{
-            num[i] += "";
+function insertDash(num) {
+    var numStr = num.toString();
+    var result = "";
+    for (let i = 0; i < numStr.length; i++) {
+        if (parseInt(numStr[i]) % 2 !== 0 && parseInt(numStr[i + 1]) % 2 !== 0) {
+            result += numStr[i] + "-";
+        } else {  
+            result += numStr[i];
         }
     }
-    return num;
+    return result;
 }
+var result = insertDash(454793);
+console.log(result);
