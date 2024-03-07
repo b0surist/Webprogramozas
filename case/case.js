@@ -1,3 +1,5 @@
-sortme = function(names){
-    return names.sort(((a, b) => a.toLowerCase().localeCompare(b.toLowerCase)));
+function sortme(arr) {
+    return arr.sort(function(a, b) {
+        return a.localeCompare(b, 'en', { sensitivity: 'base', caseFirst: 'upper' });
+    });
 }
