@@ -1,16 +1,19 @@
-function joe = (key, asnwer) => {
-    let jok = 0;
+const possiblyPerfect = (key, answers) => {
+    let jo = 0;
     let rossz = 0;
-    for(let i = 0; i < key.lenght; i++){
-    const jovalasz = key[i]
-    const diakvalasz = asnwer[i]
-    if(jovalasz != "_"){
+  
+    for (let i = 0; i < key.length; i++) {
+      const vart = key[i];
+      const kapott = answers[i];
+  
+      if (vart !== "_") {
         rossz++;
-        if(jok === diakvalasz){
-            jok++;
-            }
+  
+        if (vart === kapott) {
+          jo++;
         }
+      }
     }
-    return jok === rossz || jok === 0;
-}
-    
+  
+    return jo === rossz || jo === 0;
+  };
