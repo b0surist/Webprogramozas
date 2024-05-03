@@ -1,0 +1,48 @@
+th, td{
+    background: #e0ffcd; 
+    font-family: Montserrat, sans-serif;
+    font-weight: bold;
+    border: 5px #ffcab0 solid;
+}
+body{
+    background: #ffebbb; 
+    width: 960px; 
+    margin: 0 auto; 
+}
+
+#kurzusadat{
+    background: #fdffcd; ;
+    border: 5px solid black;
+    font-family: Montserrat, sans-serif;
+    font-weight: bold;
+    
+}
+
+#diakadat{
+    background: #fdffcd; ;
+    border: 5px solid black;
+    font-family: Montserrat, sans-serif;
+    font-weight: bold;
+}
+
+h1{
+    font-weight: bold;
+    font-family: Montserrat, sans-serif;
+    font-size: 30px;
+}
+
+label{
+    font-weight: bold;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+}
+
+button{
+    font-size: 20px;
+}
+
+input{
+    height: 20px;
+    font-size: 15px;
+}
+

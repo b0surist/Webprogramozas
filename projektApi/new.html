@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Kurzus</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    
+    <link rel="stylesheet" href="new.css">
+</head>
+<body onload="megjelenites()">
+  
+    <h1>Tantárgyak és a hozzájuk tartozó diákok:</h1><br>
+    <label for="be">Kérem adja mega kurzus nevét:</label>
+    <input type="text" id="be">
+    <button onclick="felvetel()">Felvétel!</button>
+    <br>
+    <label for="beDiak">Kérem írja be az új diák nevét:</label>
+    <input type="text" id="beDiak">
+    <label for="beKurzus">Melyik kurzusba szeretné felvenni(ID):</label>
+    <input type="number" id="beKurzus">
+    <button onclick="felvetelDiak()">Felvétel!</button>
+    <br>    
+    <label for="diakid">Kérem adja meg egy diák ID-ját a kereséshez:</label>
+    <input id="diakid" type="number" min="1" >
+    <button onclick="keresesdiak()">Keresés</button>
+    <div id="diakadat"></div>
+    <label for="kuid">Kérem adja meg egy kurzus ID-ját a kereséshez:</label>
+    <input id="kuid" type="number" min="1">
+    <button onclick="kereses()">Keresés</button>
+    <div id="kurzusadat"></div>
+
+   
+    <br><br><br>
+    <h1>Kurzusok</h1>
+    <table id="ki"></table>
+    
+
+</body>
+<script src='new.js'></script>
+</html>
