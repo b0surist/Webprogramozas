@@ -1,13 +1,13 @@
 const url = "https://vvri.pythonanywhere.com/api/courses";
-function megjelenites(){
-fetch(url, {
-    method: "GET",
-    headers: {
-        "Content-type": "application/json; charset=UTF-8"
-    },
-})
-    .then(response => response.json())
-    .then(json => {
+async function megjelenites(){
+    try{
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+    const json = await response.json();
         let ki = `<tr><th>Kurzus nev</th><th>ID</th><th colspan="40">Kurzus résztvevői</th></tr>`;
         json.forEach(courses => {
             ki += `<tr>
@@ -18,12 +18,17 @@ fetch(url, {
              })
         });
         document.getElementById("ki").innerHTML = ki;
-    });
+    }
+    catch(hiba){
+        console.hiba(hiba);
+    }
 }
-function felvetelDiak() {
-    let feldiak = document.getElementById("beDiak").value;
-    let kivdiak = document.getElementById("beKurzus").value;
-    fetch(`https://vvri.pythonanywhere.com/api/students`, {
+
+async function felvetelDiak() {
+    try{
+        let feldiak = document.getElementById("beDiak").value;
+        let kivdiak = document.getElementById("beKurzus").value;    
+        const response = await fetch(`https://vvri.pythonanywhere.com/api/students`, {
             method: "POST",
             body: JSON.stringify({
                 name: feldiak,
@@ -33,17 +38,19 @@ function felvetelDiak() {
                 "Content-type": "application/json; charset=UTF-8"
             }
         })
-
-        .then(response => response.json())
-        .then(json => {
-            console.log("Új diák hozzáadva", json);
-            megjelenites()
-        })
-        .catch(hiba => console.hiba('Hiba a diák létrehozásánál:', hiba));
+        const json = await response.json();
+        console.log("Új diák hozzáadva", json);
+        await megjelenites()
+    }
+    catch(hiba){
+        console.hiba('Hiba a diák létrehozásánál:', hiba);
+    }
 }
-function felvetel() {
-    let fel = document.getElementById("be").value;
-    fetch(url, {
+
+async function felvetel() {
+    try{
+        let fel = document.getElementById("be").value;
+        const response = await fetch(url, {
             method: "POST",
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
@@ -51,87 +58,90 @@ function felvetel() {
             body: JSON.stringify({
                 name: fel
             }),
-        })
-        .then(response => response.json())
-        .then(json => {
-            console.log("Kurzus sikeresen létrehozva", json);
-            megjelenites()
-        })
-        .catch(hiba => console.hiba('Hiba a kurzus létrehozásánál:', hiba));
-}
-function kereses() {
-    let id = document.getElementById("kuid").value;
-    fetch("https://vvri.pythonanywhere.com/api/courses/" + id)
-        .then(response => {
-            if (!response.ok) {
-                throw new hiba("A megadott kurzus nem található.");
-            }
-            return response.json();
-        })
-        .then(data => {
-            document.getElementById("kurzusadat").innerHTML = `
-                <p>Kurzus ID-ja: ${data.id}</p>
-                <p>Név: ${data.name}</p>`;
-        })
-        .catch(hiba => {
-            document.getElementById("kurzusadat").innerHTML = `<p>${hiba.message}</p>`;
         });
+        const json = await response.json();
+        console.log("Kurzus sikeresen létrehozva", json);
+        await megjelenites()
+    }
+    catch(hiba){
+        console.hiba('Hiba a kurzus létrehozásánál:', hiba);
+    }    
 }
 
-function keresesdiak() {
-    let id = document.getElementById("diakid").value;
-    fetch(`https://vvri.pythonanywhere.com/api/students/` + id)
-        .then(response => {
-            if (!response.ok) {
-                throw new hiba("A megadott diák nem található.");
-            }
-            return response.json();
-        })
-        .then(student => {
-            let diakID=student.id
-            document.getElementById("diakadat").innerHTML = `
+async function kereses() {
+    try{
+        let id = document.getElementById("kuid").value;
+        const response = await fetch("https://vvri.pythonanywhere.com/api/courses/" + id);
+        if (!response.ok) {
+            throw new hiba("A megadott kurzus nem található.");
+        }
+        const data = await response.json();
+        document.getElementById("kurzusadat").innerHTML = `
+                <p>Kurzus ID-ja: ${data.id}</p>
+                <p>Név: ${data.name}</p>`;
+    }
+    catch(hiba){
+        document.getElementById("kurzusadat").innerHTML = `<p>${hiba.message}</p>`;
+        
+    }
+}
+
+async function keresesdiak() {
+    try{
+        let id = document.getElementById("diakid").value;
+        const response = await fetch(`https://vvri.pythonanywhere.com/api/students/` + id);
+        if (!response.ok) {
+            throw new hiba("A megadott diák nem található.");
+        }
+        const student = await response.json();
+        document.getElementById("diakadat").innerHTML = `
             <p>Diák nevének szerkesztése(kurzus ID)</p><input type="text" id="kurzus"><p>Új név</p><input type="text" id="nev">  
             <button onclick="ujdiaknev(${diakID})">Változtatás!</button><br>
             <p></p>
             <button onclick="deleteStudent(${diakID})">Törlés!</button>
             <p>Diák ID-ja: ${diakID}</p>
             <p>Név: ${student.name}</p>`;
-        })
-        .catch(hiba => {
-            document.getElementById("diakadat").innerHTML = `<p>${hiba.message}</p>`;
-        });
+    }
+    catch(hiba){
+        document.getElementById("diakadat").innerHTML = `<p>${hiba.message}</p>`;
+    }
 }
-function ujdiaknev(diaID) {
-    let ujnev = document.getElementById("nev").value;
-    let kurzId=document.getElementById("kurzus").value;
-    fetch(`https://vvri.pythonanywhere.com/api/students/` + diaID, {
-        method: "PUT",
-        body: JSON.stringify({
-            name: ujnev,
-            course_id: kurzId
-        }),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-    })
-    .then(response => {
+
+async function ujdiaknev(diaID) {
+    try{
+        let ujnev = document.getElementById("nev").value;
+        let kurzId=document.getElementById("kurzus").value;
+        const response = await fetch(`https://vvri.pythonanywhere.com/api/students/` + diaID, {
+            method: "PUT",
+            body: JSON.stringify({
+                name: ujnev,
+                course_id: kurzId
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
         if (!response.ok) {
             throw new hiba('Hiba');
         }
-        return response.json();
-    })
-    .then(json => {
+        const json = await response.json();
         console.log("A név sikeresen meg lett változtatva", json);
-        megjelenites();
-    })
-    .catch(hiba => console.hiba('Hiba a diák frissítésekor:', hiba));
+        await megjelenites();
+    }
+    catch(hiba){
+        console.hiba('Hiba a diák frissítésekor:', hiba)
+    }
 }
-document.getElementById("ki").innerHTML = ki;
-function deleteStudent(diaID) {
-        fetch(`https://vvri.pythonanywhere.com/api/students/${diaID}`, {
+
+async function deleteStudent(diaID) {
+    try{
+        await fetch(`https://vvri.pythonanywhere.com/api/students/${diaID}`, {
             method: 'DELETE'
-        })
-        .then(() => megjelenites())
-        .catch(hiba => console.log('Hiba történt a diák törlésekor: ' + hiba));
+        });
+        await megjelenites();
         console.log("A törlés sikeres")
+    }
+    catch(hiba){
+        console.log('Hiba történt a diák törlésekor: ' + hiba);
+    }
 }
