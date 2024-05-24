@@ -1,0 +1,12 @@
+const fs = require('fs');
+
+fs.writeFile('./Dalszöveg/szoveg.txt', 'Itt ez a sok szép lány És mind engem várSzörnyen gazdag vagyokTudom, hogy ez ezzel járImádnak a lányokBár még a nevemet sem tudjákHa a pénz az beszél, én sokat dumálokRajonganak értem az aranybulákNem kell a szerelem, az semmit sem érCsajodat megvehetném tízezerér De nem kell nekem, hogyan néz ki szegény24 karátos bulából már mind az enyémVan itt lóvé és karizmaÉn az aranyban úszom úgy, mint KatinkaEz a csaj a pénzem akarjaŐ egy aranyásó, és én vagyok neki AlaszkaII. András magyar királyA nemesekkel nagy a viszályDe András megoldja simánAranybulla arany aranybullaA helyszín SzékesfehérvárÓriási a feszültség márDe András megoldja simánAranybulla arany aranybullaNa ez fura volt, de térjünk visszaMert a Lamborghinim befaroltEgy aranybulám idehajolEz a lány részeg, a pénzem az etanolItt van Ferenc meg IstvánMondjál egy jobb párostEmlékszem anno apunak isÉn vettem meg a várostAz arcom sármosPénzem számos, létem károsAz összes bulám tetőtől talpigArany, mint a JánosMinden lány engem akarnaÉs minden fiú is, legfeljebb tagadjaUtálóimat az zavarja, hogy sosemKelek korán, mégis ráleltem az aranyraII. András magyar királyA nemesek csoportja rinyálDe András megoldja simánAranybulla arany aranybullaEgy törvény kéne végre márAmire mindenki száz éve várDe András megoldja simánAranybulla arany aranybullaElmondom neked, még mielőtt kérdezedTudom, hogy Aranybullából több is létezettDe azok egytől egyig amatőr munkákAz 1222-es, sosem láttam még ilyen jó bullát!II. András magyar királyEgy színarany pecsétet csinálÉs ettől mindenki vidámAranybulla arany aranybulla', () => {
+    console.log('File was written');
+});
+
+fs.readFile('./szoveg.txt', (err, data) => {
+    if(err){
+        console.log(err);
+    }
+    console.log(data.toString());
+});
