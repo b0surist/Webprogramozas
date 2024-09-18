@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codewars Felhasználó Pontjai</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <h1>Codewars Felhasználó Pontjai</h1>
+    
+    <label for="username">Felhasználónév:</label>
+    <input type="text" id="username" placeholder="Felhasználónév...">
+    <button onclick="fetchUserData()">Keresés</button>
+    
+    <div class="menu">
+        <button onclick="showTotalPoints()">Összesített pontok</button>
+        <button onclick="showLanguagePoints()">Pontok nyelvek szerint</button>
+    </div>
+    
+    <div id="output"></div>
+
+    <script src="index.js"></script>
+</body>
+</html>
