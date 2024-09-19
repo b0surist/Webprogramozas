@@ -26,15 +26,22 @@ let userData = null;
 
         function showTotalPoints() {
             const outputDiv = document.getElementById('output');
-            const totalPoints = userData.ranks.overall.score;
-            outputDiv.innerHTML = `<h2>Összesített pontok: ${totalPoints}</h2>`;
+            const user = userData.overall;
+            let adatok = '<h2>Felhasználó adatai:</h2>'
+            for(let adat in user){
+                adatok += `<li>${user[adat].name}</li>`;
+            }
+            outputDiv.innerHTML = adatok;
         }
         function showLanguagePoints() {
             const outputDiv = document.getElementById('output');
             const languages = userData.ranks.languages;
             let languagePoints = '<h2>Pontok nyelvek szerint:</h2><ul>';
             for (let language in languages) {
-                languagePoints += `<li>${language}: ${languages[language].score} pont</li>`;
+                languagePoints += `<li>${language}: ${languages[language].score} pont</li>
+                                   <li>szín: ${languages[language].color}</li>
+                                   <li>rank: ${languages[language].rank} 
+                                   <li>rank: ${languages[language].name}`;
             }
             languagePoints += '</ul>';
             outputDiv.innerHTML = languagePoints;
