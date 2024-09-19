@@ -21,16 +21,21 @@ let userData = null;
                     outputDiv.innerHTML = '<p class="error">Hiba történt a lekérdezés során!</p>';
                 }
                 userData = null;
+                
             }
         }
 
         function showTotalPoints() {
             const outputDiv = document.getElementById('output');
-            const user = userData.overall;
-            let adatok = '<h2>Felhasználó adatai:</h2>'
-            for(let adat in user){
-                adatok += `<li>${user[adat].name}</li>`;
-            }
+            const user = userData;
+            let adatok = '<h2>Felhasználó adatai:</h2><ul>';
+            adatok += `<li>Felhasználónév: ${user.username}</li>`
+            adatok += `<li>Név: ${user.name}</li>`;
+            adatok += `<li>Pontszám: ${user.honor}</li>`;
+            adatok += `<li>Rank: ${user.ranks.overall.name}</li>`;
+            adatok += `<li>Klán: ${user.clan}</li>`
+            adatok += `<li>Skills: ${user.skills}</li>`
+            adatok += '</ul>';
             outputDiv.innerHTML = adatok;
         }
         function showLanguagePoints() {
