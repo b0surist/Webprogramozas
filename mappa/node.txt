@@ -1,0 +1,73 @@
+npm init
+npm install express
+npm i nodemon --safe-dev
+
+node index.js indítás
+control c leállítás
+
+npm start
+npm run dev
+
+
+import express from 'express';
+
+const router = express.Router()
+
+router.get('/product', (req, res)=>{
+    console.log('App use 1. üzenet')
+    res.send(`Termékek listája`)
+})
+
+export default router;
+
+import express from 'express';
+
+const router = express.Router()
+
+router.get('/admin/product', (req, res)=>{
+    console.log('App use 1. üzenet')
+    res.send(`<form action="/admin" method="POST">
+        <input type="text" name="userName">
+        <button type="submit">Send</button>`)
+})
+/*
+router.get('/admin', (req, res)=>{
+    console.log('App use 1. üzenet')
+    res.send(`<form action="/admin" method="POST">
+        <input type="text" name="userName">
+        <button type="submit">Send</button>`)
+})
+*/
+export default router;
+
+import express from 'express'
+import userRoutes from './routes/admin.js'
+import userRoute from './routes/product.js'
+
+const app = express()
+const PORT = 3000
+
+app.use('/', userRoutes)
+app.use('/', userRoute)
+
+app.listen(PORT, () => console.log(`Fut a szerver a http://localhost:${PORT} porton`))
+
+{
+  "name": "gyakorlas",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "stat": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "b0surist",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.0",
+    "nodeman": "^1.1.2",
+    "nodemon": "^3.1.7"
+  }
+}
