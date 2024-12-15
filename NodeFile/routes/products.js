@@ -69,4 +69,30 @@ router.delete("/products/:id", async (req, res, next) => {
     }
 });
 
+app.post('/upload', upload.single('image'), (req, res) => {
+    const { filename } = req.file;
+    dbImg.run('INSERT INTO images (filename) VALUES (?)', [filename], (err) => {
+      if (err) return res.status(500).send('Server error');
+      res.redirect('/');
+    });
+  });
+
+app.post('/delete/:id', async (req, res) => {
+  const { id } = req.params;
+  dbImg.get('SELECT filename FROM images WHERE id = ?', [id], async (err, row) => {
+    if (err || !row) return res.status(404).send('Image not found');
+    try {
+      const filePath = path.join(...imageFolder, row.filename);
+      await unlink(filePath);
+      dbImg.run('DELETE FROM images WHERE id = ?', [id], () => {
+        res.redirect('/');
+      });
+    } catch (error) {
+      console.error('File upload error:', error);
+      res.redirect('/');
+    }
+  });
+});
+
+
 export default router;

@@ -4,13 +4,13 @@ const db = new sqlite3.Database("./database.sqlite");
 
 const initializeDB = async () => {
     await dbRun("DROP TABLE products")
-    await dbRun("CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, descriptioni TEXT, picutre JPG, price double)");
+    await dbRun("CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, descriptioni TEXT, picutre TEXT, price REAL)");
 
     
     const product = [
-        { name: "alma", description: "piros", picture: "alma.jpg", price: 10 },
-        { name: "banán", description: "érett", picture: "banana.jpg", price: 8 },
-        { name: "tej", description: "kecske tej", picture: "tej.jpg", price: 15.99 },
+        { name: "alma", description: "piros", picture: "alma.picture", price: 10.65 },
+        { name: "banán", description: "érett", picture: "banana.picture", price: 8.21 },
+        { name: "tej", description: "kecske tej", picture: "tej.picture", price: 15.99 },
     ];
 
     for (const product of product) {
@@ -35,5 +35,6 @@ function dbRun(sql, params = []) {
         });
     });
 }
+
 
 export { db, dbQuery, dbRun, initializeDB};
