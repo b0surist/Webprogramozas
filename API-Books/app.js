@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { initializeDB } from "./database.js";
+import { initializeDB } from "../database.js";
 import router from "./routes/book.js";
 import swaggerUi from 'swagger-ui-express';
 const swaggerDocument = JSON.parse(await readFile(new URL("./swagger-output.json", import.meta.url)));

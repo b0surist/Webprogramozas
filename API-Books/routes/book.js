@@ -1,5 +1,5 @@
 import express from "express";
-import { dbQuery, dbRun } from "./database.js";
+import { dbQuery, dbRun } from "../database.js";
 
 const router = express.Router();
 
@@ -22,7 +22,7 @@ router.get("books/:id", async (req, res, next) => {
     }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/books", async (req, res, next) => {
     try {
         const { id, title, author, description, year } = req.body;
         const result = await dbRun(
