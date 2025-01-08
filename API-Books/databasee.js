@@ -1,6 +1,6 @@
 import sqlite3 from 'sqlite3'
 
-const db = new sqlite3.Database("./database.sqlite");
+const db = new sqlite3.Database("../database.sqlite");
 
 const initializeDB = async () => {
     await dbRun("DROP TABLE books")
