@@ -1,0 +1,139 @@
+// src/main.js
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
+import router from './router';
+import App from './App.vue';
+import Toast from 'vue-toastification';
+import 'vue-toastification/dist/index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const app = createApp(App);
+app.use(createPinia());
+app.use(router);
+app.use(Toast);
+app.mount('#app');
+
+// src/router/index.js
+import { createRouter, createWebHistory } from 'vue-router';
+import Home from '../views/Home.vue';
+import Booking from '../views/Booking.vue';
+
+const routes = [
+  { path: '/', component: Home },
+  { path: '/booking/:time', component: Booking, props: true }
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes
+});
+
+export default router;
+
+// src/store/useAppointments.js
+import { defineStore } from 'pinia';
+import axios from 'axios';
+
+export const useAppointments = defineStore('appointments', {
+  state: () => ({
+    availableTimes: [],
+    bookedTimes: []
+  }),
+  actions: {
+    async fetchAppointments() {
+      const { data } = await axios.get('http://localhost:3000/appointments');
+      this.bookedTimes = data;
+      this.generateAvailableTimes();
+    },
+    generateAvailableTimes() {
+      const times = [];
+      for (let i = 8; i <= 16; i++) {
+        times.push(`${i}:00`);
+      }
+      this.availableTimes = times.filter(t => !this.bookedTimes.includes(t));
+    },
+    async bookAppointment(name, phone, time) {
+      await axios.post('http://localhost:3000/appointments', { time, name, phone });
+      this.bookedTimes.push(time);
+      this.generateAvailableTimes();
+    }
+  }
+});
+
+// src/views/Home.vue
+<template>
+  <div class='container'>
+    <h1>Időpontfoglalás</h1>
+    <ul>
+      <li v-for='time in availableTimes' :key='time'>
+        <router-link :to="`/booking/${time}`">{{ time }}</router-link>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+import { useAppointments } from '../store/useAppointments';
+import { onMounted } from 'vue';
+
+export default {
+  setup() {
+    const store = useAppointments();
+    onMounted(store.fetchAppointments);
+    return { availableTimes: store.availableTimes };
+  }
+};
+</script>
+
+// src/views/Booking.vue
+<template>
+  <div class='container'>
+    <h1>Foglalás: {{ time }}</h1>
+    <form @submit.prevent='submitBooking'>
+      <input v-model='name' placeholder='Név' required />
+      <input v-model='phone' placeholder='Telefonszám' required />
+      <button type='submit'>Foglalás</button>
+    </form>
+  </div>
+</template>
+
+<script>
+import { useAppointments } from '../store/useAppointments';
+import { useToast } from 'vue-toastification';
+import { ref } from 'vue';
+
+export default {
+  props: ['time'],
+  setup(props) {
+    const store = useAppointments();
+    const toast = useToast();
+    const name = ref('');
+    const phone = ref('');
+    
+    const submitBooking = async () => {
+      await store.bookAppointment(name.value, phone.value, props.time);
+      toast.success('Foglalás sikeres!');
+    };
+
+    return { name, phone, submitBooking };
+  }
+};
+</script>
+
+// JSON-server (db.json)
+{
+  "appointments": ["9:00", "11:00", "14:00"]
+}
+
+// Tesztelés (Vitest)
+import { describe, it, expect } from 'vitest';
+import { useAppointments } from '../store/useAppointments';
+
+describe('Appointments Store', () => {
+  it('should generate available times correctly', () => {
+    const store = useAppointments();
+    store.bookedTimes = ['9:00', '10:00'];
+    store.generateAvailableTimes();
+    expect(store.availableTimes).not.toContain('9:00');
+  });
+});
